@@ -1,0 +1,10 @@
+# SBT related
+**/target
+*.class
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+**/.idea
+out

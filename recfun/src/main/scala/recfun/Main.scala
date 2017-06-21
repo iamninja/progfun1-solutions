@@ -1,5 +1,6 @@
 package recfun
 
+
 object Main {
   def main(args: Array[String]) {
     println("Pascal's Triangle")
@@ -13,15 +14,31 @@ object Main {
   /**
    * Exercise 1
    */
-    def pascal(c: Int, r: Int): Int = ???
+    def pascal(c: Int, r: Int): Int =
+      if (c == 0 || c == r) 1
+      else pascal(c-1, r-1) + pascal(c, r-1)
   
   /**
    * Exercise 2
    */
-    def balance(chars: List[Char]): Boolean = ???
+    def balance(chars: List[Char]): Boolean = {
+      def loop(list: List[Char], acc: Int): Boolean = {
+        if (acc < 0) false
+        else if (list.isEmpty && acc != 0) false
+        else if (list.isEmpty && acc == 0) true
+        else if (list.head == '(') loop(list.tail, acc + 1) // Single quotes define char. ")" is a string
+        else if (list.head == ')') loop(list.tail, acc - 1)
+        else loop(list.tail, acc)
+      }
+
+      loop(chars, 0)
+    }
   
   /**
    * Exercise 3
    */
-    def countChange(money: Int, coins: List[Int]): Int = ???
+    def countChange(money: Int, coins: List[Int]): Int =
+      if (money == 0) 1
+      else if (money < 0 || coins.isEmpty) 0
+      else countChange(money, coins.tail) +  countChange(money - coins.head, coins)
   }

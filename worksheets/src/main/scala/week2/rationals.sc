@@ -23,10 +23,10 @@ class Rational(x: Int, y: Int) {
 
   def - (that: Rational): Rational = this + -that
 
-  def < (that: Rational) =
+  def < (that: Rational): Boolean =
     numer * that.denom < that.numer * denom
 
-  def max(that: Rational) =
+  def max(that: Rational): Rational =
     if (this < that) that else this
 }
 

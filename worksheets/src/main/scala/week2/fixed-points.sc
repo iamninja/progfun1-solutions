@@ -1,3 +1,5 @@
+package week2
+
 import math.abs
 
 val tolerance = 0.0001

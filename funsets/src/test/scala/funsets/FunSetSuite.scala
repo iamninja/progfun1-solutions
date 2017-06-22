@@ -110,5 +110,63 @@ class FunSetSuite extends FunSuite {
     }
   }
 
+  test("intersect contains all common elements in both sets") {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      val t = intersect(s, s3)
+      assert(!contains(t, 1), "Intersect 1")
+      assert(!contains(t, 2), "Intersect 2")
+      assert(contains(t, 3), "Intersect 3")
+    }
+  }
 
+  test("difference contains all elements of first set that are not in second set") {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      val t = diff(s, s3)
+      assert(contains(t, 1), "Diff 1")
+      assert(contains(t, 2), "Diff 2")
+      assert(!contains(t, 3), "Diff 3")
+    }
+  }
+
+  test("filter contains all elements in set which satisfies filter p") {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      val t = filter(s, x => x % 2 == 0)
+      assert(!contains(t, 1), "Filter 1")
+      assert(contains(t, 2), "Filter 2")
+      assert(!contains(t, 3), "Filter 3")
+    }
+  }
+
+  test("check if forall elements in set, property p holds") {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      assert(!forall(s, x => x % 2 != 0), "Not all elements in set are odd")
+      assert(forall(s, x => x > 0), "All elements in set are positive")
+    }
+  }
+
+  test("check if exists element in set, for which the property p holds") {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      assert(exists(s, x => x % 2 == 0), "Exists even number in set")
+      assert(exists(s, x => x % 3 != 0), "Exists odd number in set")
+      assert(!exists(s, x => x % 7 == 0), "Doesn't exist mult of 7 in set")
+    }
+  }
+
+  test("map transforms the set applying the given function on its elements") {
+    new TestSets {
+      val s = union(union(s1, s2), s3)
+      val t = map(s, x => x * x)
+      assert(contains(t, 1), "Set of squares contains 1")
+      assert(contains(t, 4), "Set of squares contains 1")
+      assert(contains(t, 9), "Set of squares contains 1")
+      assert(!contains(t, 3), "Set of squares does not contain 3")
+      assert(!contains(t, 2), "Set of squares does not contain 2")
+      assert(!contains(t, 25), "Set of squares does not contain 25")
+    }
+  }
 }
